@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndustryRouteImport } from './routes/industry'
 import { Route as IssuesRouteImport } from './routes/issues'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as PanchayatRouteImport } from './routes/panchayat'
 import { Route as ProblemStatementsRouteImport } from './routes/problem-statements'
 import { Route as ReportRouteImport } from './routes/report'
@@ -38,6 +39,11 @@ const IndustryRoute = IndustryRouteImport.update({
 const IssuesRoute = IssuesRouteImport.update({
   id: '/issues',
   path: '/issues',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PanchayatRoute = PanchayatRouteImport.update({
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/industry': typeof IndustryRoute
   '/issues': typeof IssuesRouteWithChildren
+  '/notifications': typeof NotificationsRoute
   '/panchayat': typeof PanchayatRoute
   '/problem-statements': typeof ProblemStatementsRoute
   '/report': typeof ReportRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/industry': typeof IndustryRoute
+  '/notifications': typeof NotificationsRoute
   '/panchayat': typeof PanchayatRoute
   '/problem-statements': typeof ProblemStatementsRoute
   '/report': typeof ReportRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/industry': typeof IndustryRoute
   '/issues': typeof IssuesRouteWithChildren
+  '/notifications': typeof NotificationsRoute
   '/panchayat': typeof PanchayatRoute
   '/problem-statements': typeof ProblemStatementsRoute
   '/report': typeof ReportRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/industry'
     | '/issues'
+    | '/notifications'
     | '/panchayat'
     | '/problem-statements'
     | '/report'
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/industry'
+    | '/notifications'
     | '/panchayat'
     | '/problem-statements'
     | '/report'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/industry'
     | '/issues'
+    | '/notifications'
     | '/panchayat'
     | '/problem-statements'
     | '/report'
@@ -150,6 +162,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   IndustryRoute: typeof IndustryRoute
   IssuesRoute: typeof IssuesRouteWithChildren
+  NotificationsRoute: typeof NotificationsRoute
   PanchayatRoute: typeof PanchayatRoute
   ProblemStatementsRoute: typeof ProblemStatementsRoute
   ReportRoute: typeof ReportRoute
@@ -184,6 +197,13 @@ declare module '@tanstack/react-router' {
       path: '/issues'
       fullPath: '/issues'
       preLoaderRoute: typeof IssuesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/panchayat': {
@@ -249,6 +269,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   IndustryRoute: IndustryRoute,
   IssuesRoute: IssuesRouteWithChildren,
+  NotificationsRoute: NotificationsRoute,
   PanchayatRoute: PanchayatRoute,
   ProblemStatementsRoute: ProblemStatementsRoute,
   ReportRoute: ReportRoute,
