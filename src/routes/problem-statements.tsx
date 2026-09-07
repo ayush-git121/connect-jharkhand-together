@@ -23,7 +23,7 @@ export const Route = createFileRoute("/problem-statements")({
       },
     ],
   }),
-  component: ProblemStatements;
+  component: ProblemStatements,
 });
 
 function ProblemStatements() {
