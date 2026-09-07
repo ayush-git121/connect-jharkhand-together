@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as IssuesRouteImport } from './routes/issues'
 import { Route as IssuesIndexRouteImport } from './routes/issues.index'
+import { Route as IssuesIssueIdRouteImport } from './routes/issues.$issueId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,28 +29,36 @@ const IssuesIndexRoute = IssuesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => IssuesRoute,
 } as any)
+const IssuesIssueIdRoute = IssuesIssueIdRouteImport.update({
+  id: '/$issueId',
+  path: '/$issueId',
+  getParentRoute: () => IssuesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/issues': typeof IssuesRouteWithChildren
+  '/issues/$issueId': typeof IssuesIssueIdRoute
   '/issues/': typeof IssuesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/issues/$issueId': typeof IssuesIssueIdRoute
   '/issues': typeof IssuesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/issues': typeof IssuesRouteWithChildren
+  '/issues/$issueId': typeof IssuesIssueIdRoute
   '/issues/': typeof IssuesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/issues' | '/issues/'
+  fullPaths: '/' | '/issues' | '/issues/$issueId' | '/issues/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/issues'
-  id: '__root__' | '/' | '/issues' | '/issues/'
+  to: '/' | '/issues/$issueId' | '/issues'
+  id: '__root__' | '/' | '/issues' | '/issues/$issueId' | '/issues/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -80,14 +89,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IssuesIndexRouteImport
       parentRoute: typeof IssuesRoute
     }
+    '/issues/$issueId': {
+      id: '/issues/$issueId'
+      path: '/$issueId'
+      fullPath: '/issues/$issueId'
+      preLoaderRoute: typeof IssuesIssueIdRouteImport
+      parentRoute: typeof IssuesRoute
+    }
   }
 }
 
 interface IssuesRouteChildren {
+  IssuesIssueIdRoute: typeof IssuesIssueIdRoute
   IssuesIndexRoute: typeof IssuesIndexRoute
 }
 
 const IssuesRouteChildren: IssuesRouteChildren = {
+  IssuesIssueIdRoute: IssuesIssueIdRoute,
   IssuesIndexRoute: IssuesIndexRoute,
 }
 
