@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as IssuesRouteImport } from './routes/issues'
 import { Route as PanchayatRouteImport } from './routes/panchayat'
+import { Route as ProblemStatementsRouteImport } from './routes/problem-statements'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as IssuesIndexRouteImport } from './routes/issues.index'
 import { Route as IssuesIssueIdRouteImport } from './routes/issues.$issueId'
@@ -29,6 +30,11 @@ const IssuesRoute = IssuesRouteImport.update({
 const PanchayatRoute = PanchayatRouteImport.update({
   id: '/panchayat',
   path: '/panchayat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProblemStatementsRoute = ProblemStatementsRouteImport.update({
+  id: '/problem-statements',
+  path: '/problem-statements',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReportRoute = ReportRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/issues': typeof IssuesRouteWithChildren
   '/panchayat': typeof PanchayatRoute
+  '/problem-statements': typeof ProblemStatementsRoute
   '/report': typeof ReportRoute
   '/issues/$issueId': typeof IssuesIssueIdRoute
   '/issues/': typeof IssuesIndexRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/panchayat': typeof PanchayatRoute
+  '/problem-statements': typeof ProblemStatementsRoute
   '/report': typeof ReportRoute
   '/issues/$issueId': typeof IssuesIssueIdRoute
   '/issues': typeof IssuesIndexRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/issues': typeof IssuesRouteWithChildren
   '/panchayat': typeof PanchayatRoute
+  '/problem-statements': typeof ProblemStatementsRoute
   '/report': typeof ReportRoute
   '/issues/$issueId': typeof IssuesIssueIdRoute
   '/issues/': typeof IssuesIndexRoute
@@ -74,14 +83,27 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/issues' | '/panchayat' | '/report' | '/issues/$issueId' | '/issues/'
+    | '/'
+    | '/issues'
+    | '/panchayat'
+    | '/problem-statements'
+    | '/report'
+    | '/issues/$issueId'
+    | '/issues/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/panchayat' | '/report' | '/issues/$issueId' | '/issues'
+  to:
+    | '/'
+    | '/panchayat'
+    | '/problem-statements'
+    | '/report'
+    | '/issues/$issueId'
+    | '/issues'
   id:
     | '__root__'
     | '/'
     | '/issues'
     | '/panchayat'
+    | '/problem-statements'
     | '/report'
     | '/issues/$issueId'
     | '/issues/'
@@ -91,6 +113,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   IssuesRoute: typeof IssuesRouteWithChildren
   PanchayatRoute: typeof PanchayatRoute
+  ProblemStatementsRoute: typeof ProblemStatementsRoute
   ReportRoute: typeof ReportRoute
 }
 
@@ -115,6 +138,13 @@ declare module '@tanstack/react-router' {
       path: '/panchayat'
       fullPath: '/panchayat'
       preLoaderRoute: typeof PanchayatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/problem-statements': {
+      id: '/problem-statements'
+      path: '/problem-statements'
+      fullPath: '/problem-statements'
+      preLoaderRoute: typeof ProblemStatementsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/report': {
@@ -158,6 +188,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   IssuesRoute: IssuesRouteWithChildren,
   PanchayatRoute: PanchayatRoute,
+  ProblemStatementsRoute: ProblemStatementsRoute,
   ReportRoute: ReportRoute,
 }
 export const routeTree = rootRouteImport
