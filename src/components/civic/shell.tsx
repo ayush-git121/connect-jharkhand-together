@@ -1,9 +1,9 @@
-import { Link } from "@tanstack/react-router";
+import { Link, type LinkProps } from "@tanstack/react-router";
 import { Bell, Landmark } from "lucide-react";
 import { useCivic } from "@/lib/civic-store";
 import { ROLES, type Role } from "@/lib/civic-types";
 
-const NAV: Record<Role, { to: string; label: string }[]> = {
+const NAV: Record<Role, { to: LinkProps["to"]; label: string }[]> = {
   citizen: [
     { to: "/", label: "Overview" },
     { to: "/report", label: "Report an issue" },
