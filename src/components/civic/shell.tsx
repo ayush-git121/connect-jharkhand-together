@@ -3,7 +3,9 @@ import { Bell, Landmark } from "lucide-react";
 import { useCivic } from "@/lib/civic-store";
 import { ROLES, type Role } from "@/lib/civic-types";
 
-const NAV: Record<Role, { to: LinkProps["to"]; label: string }[]> = {
+type NavTo = NonNullable<LinkProps["to"]>;
+
+const NAV: Record<Role, { to: NavTo; label: string }[]> = {
   citizen: [
     { to: "/", label: "Overview" },
     { to: "/report", label: "Report an issue" },
