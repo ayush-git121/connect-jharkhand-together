@@ -288,7 +288,12 @@ export function CivicProvider({ children }: { children: ReactNode }) {
     (id, impact) => {
       patch(id, (i) =>
         log(
-          { ...i, status: "solved", impact, project: i.project ? { ...i.project, stage: "Deployed", progress: 100 } : i.project },
+          {
+            ...i,
+            status: "solved",
+            impact,
+            ...(i.project ? { project: { ...i.project, stage: "Deployed" as const, progress: 100 } } : {}),
+          },
           "Dept. of Rural Development",
           "government",
           "Impact verified and issue closed.",

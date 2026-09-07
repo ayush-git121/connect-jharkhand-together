@@ -165,6 +165,6 @@ export type Notification = {
   to: Role[];
   text: string;
   at: string;
-  issueId?: string;
+  issueId?: string | undefined;
   read: boolean;
 };
