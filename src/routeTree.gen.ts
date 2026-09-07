@@ -14,6 +14,7 @@ import { Route as IssuesRouteImport } from './routes/issues'
 import { Route as PanchayatRouteImport } from './routes/panchayat'
 import { Route as ProblemStatementsRouteImport } from './routes/problem-statements'
 import { Route as ReportRouteImport } from './routes/report'
+import { Route as UniversityRouteImport } from './routes/university'
 import { Route as IssuesIndexRouteImport } from './routes/issues.index'
 import { Route as IssuesIssueIdRouteImport } from './routes/issues.$issueId'
 
@@ -42,6 +43,11 @@ const ReportRoute = ReportRouteImport.update({
   path: '/report',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UniversityRoute = UniversityRouteImport.update({
+  id: '/university',
+  path: '/university',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IssuesIndexRoute = IssuesIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/panchayat': typeof PanchayatRoute
   '/problem-statements': typeof ProblemStatementsRoute
   '/report': typeof ReportRoute
+  '/university': typeof UniversityRoute
   '/issues/$issueId': typeof IssuesIssueIdRoute
   '/issues/': typeof IssuesIndexRoute
 }
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/panchayat': typeof PanchayatRoute
   '/problem-statements': typeof ProblemStatementsRoute
   '/report': typeof ReportRoute
+  '/university': typeof UniversityRoute
   '/issues/$issueId': typeof IssuesIssueIdRoute
   '/issues': typeof IssuesIndexRoute
 }
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/panchayat': typeof PanchayatRoute
   '/problem-statements': typeof ProblemStatementsRoute
   '/report': typeof ReportRoute
+  '/university': typeof UniversityRoute
   '/issues/$issueId': typeof IssuesIssueIdRoute
   '/issues/': typeof IssuesIndexRoute
 }
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/panchayat'
     | '/problem-statements'
     | '/report'
+    | '/university'
     | '/issues/$issueId'
     | '/issues/'
   fileRoutesByTo: FileRoutesByTo
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/panchayat'
     | '/problem-statements'
     | '/report'
+    | '/university'
     | '/issues/$issueId'
     | '/issues'
   id:
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/panchayat'
     | '/problem-statements'
     | '/report'
+    | '/university'
     | '/issues/$issueId'
     | '/issues/'
   fileRoutesById: FileRoutesById
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   PanchayatRoute: typeof PanchayatRoute
   ProblemStatementsRoute: typeof ProblemStatementsRoute
   ReportRoute: typeof ReportRoute
+  UniversityRoute: typeof UniversityRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -154,6 +167,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/university': {
+      id: '/university'
+      path: '/university'
+      fullPath: '/university'
+      preLoaderRoute: typeof UniversityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/issues/': {
       id: '/issues/'
       path: '/'
@@ -190,6 +210,7 @@ const rootRouteChildren: RootRouteChildren = {
   PanchayatRoute: PanchayatRoute,
   ProblemStatementsRoute: ProblemStatementsRoute,
   ReportRoute: ReportRoute,
+  UniversityRoute: UniversityRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
