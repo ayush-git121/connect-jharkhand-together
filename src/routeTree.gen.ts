@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as IssuesRouteImport } from './routes/issues'
+import { Route as IssuesIndexRouteImport } from './routes/issues.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,38 @@ const IssuesRoute = IssuesRouteImport.update({
   path: '/issues',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IssuesIndexRoute = IssuesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => IssuesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/issues': typeof IssuesRoute
+  '/issues': typeof IssuesRouteWithChildren
+  '/issues/': typeof IssuesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/issues': typeof IssuesRoute
+  '/issues': typeof IssuesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/issues': typeof IssuesRoute
+  '/issues': typeof IssuesRouteWithChildren
+  '/issues/': typeof IssuesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/issues'
+  fullPaths: '/' | '/issues' | '/issues/'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/issues'
-  id: '__root__' | '/' | '/issues'
+  id: '__root__' | '/' | '/issues' | '/issues/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  IssuesRoute: typeof IssuesRoute
+  IssuesRoute: typeof IssuesRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +73,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IssuesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/issues/': {
+      id: '/issues/'
+      path: '/'
+      fullPath: '/issues/'
+      preLoaderRoute: typeof IssuesIndexRouteImport
+      parentRoute: typeof IssuesRoute
+    }
   }
 }
 
+interface IssuesRouteChildren {
+  IssuesIndexRoute: typeof IssuesIndexRoute
+}
+
+const IssuesRouteChildren: IssuesRouteChildren = {
+  IssuesIndexRoute: IssuesIndexRoute,
+}
+
+const IssuesRouteWithChildren =
+  IssuesRoute._addFileChildren(IssuesRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  IssuesRoute: IssuesRoute,
+  IssuesRoute: IssuesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
