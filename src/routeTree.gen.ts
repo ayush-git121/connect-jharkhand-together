@@ -10,33 +10,163 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as IndustryRouteImport } from './routes/industry'
+import { Route as IssuesRouteImport } from './routes/issues'
+import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as PanchayatRouteImport } from './routes/panchayat'
+import { Route as ProblemStatementsRouteImport } from './routes/problem-statements'
+import { Route as ReportRouteImport } from './routes/report'
+import { Route as UniversityRouteImport } from './routes/university'
+import { Route as IssuesIndexRouteImport } from './routes/issues.index'
+import { Route as IssuesIssueIdRouteImport } from './routes/issues.$issueId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustryRoute = IndustryRouteImport.update({
+  id: '/industry',
+  path: '/industry',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IssuesRoute = IssuesRouteImport.update({
+  id: '/issues',
+  path: '/issues',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PanchayatRoute = PanchayatRouteImport.update({
+  id: '/panchayat',
+  path: '/panchayat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProblemStatementsRoute = ProblemStatementsRouteImport.update({
+  id: '/problem-statements',
+  path: '/problem-statements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportRoute = ReportRouteImport.update({
+  id: '/report',
+  path: '/report',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UniversityRoute = UniversityRouteImport.update({
+  id: '/university',
+  path: '/university',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IssuesIndexRoute = IssuesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => IssuesRoute,
+} as any)
+const IssuesIssueIdRoute = IssuesIssueIdRouteImport.update({
+  id: '/$issueId',
+  path: '/$issueId',
+  getParentRoute: () => IssuesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/industry': typeof IndustryRoute
+  '/issues': typeof IssuesRouteWithChildren
+  '/notifications': typeof NotificationsRoute
+  '/panchayat': typeof PanchayatRoute
+  '/problem-statements': typeof ProblemStatementsRoute
+  '/report': typeof ReportRoute
+  '/university': typeof UniversityRoute
+  '/issues/$issueId': typeof IssuesIssueIdRoute
+  '/issues/': typeof IssuesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/industry': typeof IndustryRoute
+  '/notifications': typeof NotificationsRoute
+  '/panchayat': typeof PanchayatRoute
+  '/problem-statements': typeof ProblemStatementsRoute
+  '/report': typeof ReportRoute
+  '/university': typeof UniversityRoute
+  '/issues/$issueId': typeof IssuesIssueIdRoute
+  '/issues': typeof IssuesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/industry': typeof IndustryRoute
+  '/issues': typeof IssuesRouteWithChildren
+  '/notifications': typeof NotificationsRoute
+  '/panchayat': typeof PanchayatRoute
+  '/problem-statements': typeof ProblemStatementsRoute
+  '/report': typeof ReportRoute
+  '/university': typeof UniversityRoute
+  '/issues/$issueId': typeof IssuesIssueIdRoute
+  '/issues/': typeof IssuesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/industry'
+    | '/issues'
+    | '/notifications'
+    | '/panchayat'
+    | '/problem-statements'
+    | '/report'
+    | '/university'
+    | '/issues/$issueId'
+    | '/issues/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/industry'
+    | '/notifications'
+    | '/panchayat'
+    | '/problem-statements'
+    | '/report'
+    | '/university'
+    | '/issues/$issueId'
+    | '/issues'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/industry'
+    | '/issues'
+    | '/notifications'
+    | '/panchayat'
+    | '/problem-statements'
+    | '/report'
+    | '/university'
+    | '/issues/$issueId'
+    | '/issues/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  IndustryRoute: typeof IndustryRoute
+  IssuesRoute: typeof IssuesRouteWithChildren
+  NotificationsRoute: typeof NotificationsRoute
+  PanchayatRoute: typeof PanchayatRoute
+  ProblemStatementsRoute: typeof ProblemStatementsRoute
+  ReportRoute: typeof ReportRoute
+  UniversityRoute: typeof UniversityRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +178,102 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industry': {
+      id: '/industry'
+      path: '/industry'
+      fullPath: '/industry'
+      preLoaderRoute: typeof IndustryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/issues': {
+      id: '/issues'
+      path: '/issues'
+      fullPath: '/issues'
+      preLoaderRoute: typeof IssuesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/panchayat': {
+      id: '/panchayat'
+      path: '/panchayat'
+      fullPath: '/panchayat'
+      preLoaderRoute: typeof PanchayatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/problem-statements': {
+      id: '/problem-statements'
+      path: '/problem-statements'
+      fullPath: '/problem-statements'
+      preLoaderRoute: typeof ProblemStatementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report': {
+      id: '/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof ReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/university': {
+      id: '/university'
+      path: '/university'
+      fullPath: '/university'
+      preLoaderRoute: typeof UniversityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/issues/': {
+      id: '/issues/'
+      path: '/'
+      fullPath: '/issues/'
+      preLoaderRoute: typeof IssuesIndexRouteImport
+      parentRoute: typeof IssuesRoute
+    }
+    '/issues/$issueId': {
+      id: '/issues/$issueId'
+      path: '/$issueId'
+      fullPath: '/issues/$issueId'
+      preLoaderRoute: typeof IssuesIssueIdRouteImport
+      parentRoute: typeof IssuesRoute
+    }
   }
 }
 
+interface IssuesRouteChildren {
+  IssuesIssueIdRoute: typeof IssuesIssueIdRoute
+  IssuesIndexRoute: typeof IssuesIndexRoute
+}
+
+const IssuesRouteChildren: IssuesRouteChildren = {
+  IssuesIssueIdRoute: IssuesIssueIdRoute,
+  IssuesIndexRoute: IssuesIndexRoute,
+}
+
+const IssuesRouteWithChildren =
+  IssuesRoute._addFileChildren(IssuesRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  IndustryRoute: IndustryRoute,
+  IssuesRoute: IssuesRouteWithChildren,
+  NotificationsRoute: NotificationsRoute,
+  PanchayatRoute: PanchayatRoute,
+  ProblemStatementsRoute: ProblemStatementsRoute,
+  ReportRoute: ReportRoute,
+  UniversityRoute: UniversityRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
